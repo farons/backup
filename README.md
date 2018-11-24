@@ -10,5 +10,8 @@
 ### 版本规则
   * [规范后既定的版本规则](https://blog.csdn.net/yzlll/article/details/84259242)
 
+### 数据库使用
+  * 正在构建完成后开始使用postgresql数据库
+  
 ### 使用Python包列表
   python freeze -> requirements.txt
