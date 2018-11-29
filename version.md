@@ -1,3 +1,12 @@
+版本: v 0.0.4
+修改日期: 2018-11-29 
+修改人: yanzhilong  
+修改内容:  
+1. 修改manage.py 添加flask-script模块
+2. 修改.gitnore 添加.vscode/忽略
+
+---  
+
 版本: v 0.0.3
 修改日期: 2018-11-24 
 修改人: yanzhilong  

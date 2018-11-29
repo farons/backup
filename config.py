@@ -3,7 +3,7 @@
 # @author yanzhilong
 # @description 
 # @created Tue Nov 20 2018 13:05:07 GMT+0800 (中国标准时间)
-# @last-modified Sat Nov 24 2018 12:46:10 GMT+0800 (中国标准时间)
+# @last-modified Wed Nov 28 2018 12:55:03 GMT+0800 (中国标准时间)
 #
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -33,7 +33,7 @@ class DevelopmentConfig(Config):    # 开发环境
 
 
 class TestingConfig(Config):    # 测试环境
-    DEBUG = True
+    # DEBUG = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or \
     'sqlite:///' + os.path.join(basedir, 'data-test.sqlite')
 
