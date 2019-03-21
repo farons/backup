@@ -1,3 +1,12 @@
+版本: v 0.0.5  
+修改日期: 2019-03-21 
+修改人: yanzhilong  
+修改内容:  
+1. 修改docker-compose.yml 部署时跟新python包  
+2. 新增volumes,添加部署映射  
+
+---  
+
 版本: v 0.0.4
 修改日期: 2018-11-29 
 修改人: yanzhilong  
