@@ -1,4 +1,4 @@
-#
+# -*- coding:UTF-8 -*-
 # views.py
 # @author yanzhilong
 # @description 这里系统的基础模块,组成系统的大体框架
@@ -12,9 +12,9 @@ from flask import Blueprint
 from flask import render_template
 
 
-main = Blueprint('/main', __name__)
-main_url = '/main'
+main = Blueprint('/', __name__)
+main_url = '/'
 
-@main.route('/index', methods=['GET'])
+@main.route('/', methods=['GET'])
 def index():
     return render_template('index.html')
