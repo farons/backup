@@ -16,31 +16,29 @@ class Config:
     FLASKY_MAIL_SENDER = 'Flasky Admin <flasky@example.com>'
     FLASKY_ADMIN = os.environ.get('FLASKY_ADMIN')
     
-    @staticmethod
-    def init_app(app):
-        pass
-
 
 class DevelopmentConfig(Config):    # 开发环境
+    ENV = 'development'
     DEBUG = True
-    MAIL_SERVER = 'smtp.googlemail.com'
-    MAIL_PORT = 587
-    MAIL_USE_TLS = True
-    MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
-    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
-    'sqlite:///' + os.path.join(basedir, 'data-dev.sqlite')
+    SERVER_NAME = '0.0.0.0:7004'
 
 
 class TestingConfig(Config):    # 测试环境
-    # DEBUG = True
-    SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or \
-    'sqlite:///' + os.path.join(basedir, 'data-test.sqlite')
+    ENV = 'testing'
+    DEBUG = True
+    TESTING = True
+    SERVER_NAME = '0.0.0.0:7003'
+    DB_USER = 'root'
+    DB_PASSWORD = '123456'
+    DB_HOST = '148.70.37.64'
+    DB_PORT = 7013
+    DB_DATABASE = 'backup'
+    DB_CHARSET = 'utf-8'
 
-
-class ProductionConfig(Config):
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
-    'sqlite:///' + os.path.join(basedir, 'data-dev.sqlite')
+class ProductionConfig(Config):  # 生产环境
+    ENV = 'production'
+    DEBUG = False
+    SERVER_NAME = '0.0.0.0:7001'
 
 
 config = {
