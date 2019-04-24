@@ -10,11 +10,8 @@ from flask import Blueprint
 from .views import main, main_url
 from .errors import errors, errors_url
 
-
-
 view_modules = {
     main : main_url,  # 基础模块
     errors : errors_url,  # 错误异常模块
 
 }
-errors

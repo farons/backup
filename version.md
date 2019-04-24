@@ -1,3 +1,17 @@
+版本: v 0.0.8  
+修改日期: 2019-04-24 
+修改人: yanzhilong  
+修改内容:  
+1. 修改.gitignore 增加过滤instance私有配置文件夹 
+2. 修改app/__init__.py 增加数据库连接池  
+3. 修改app/main/__init__.py 修改路由  
+4. 新增app/main/users.py 增加用户登录逻辑  
+5. 新增app/models.py增加建表结构  
+6. 修改config.py 屏蔽本地服务器配置  
+7. 修改manage.py 修改启动文件  
+
+---  
+
 版本: v 0.0.7  
 修改日期: 2019-03-28 
 修改人: yanzhilong  
