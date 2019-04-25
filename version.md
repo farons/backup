@@ -1,3 +1,22 @@
+版本: v 0.0.9  
+修改日期: 2019-04-25  
+修改人: yanzhilong  
+修改内容:  
+1. 修改app/__init__.py 优化结构  
+2. 新增app/email.py 优化结构  
+3. 新增app/extensions.py 优化结构  
+4. 修改app/main/__init__.py 调整路由  
+5. 修改app/main/errors.py 调整路由  
+6. 修改app/main/users.py 调整结构  
+7. 修改app/main/views.py 调整结构  
+8. 修改app/models.py 增加登录校验  
+9. 修改app/templates/email/activate.html 优化邮件激活页面  
+10. 新增app/templates/errors/error.html 优化报错界面  
+11. 修改config.py 优化PEP8格式  
+12. 修改manage.py 增加启动参数  
+
+---  
+
 版本: v 0.0.8  
 修改日期: 2019-04-24 
 修改人: yanzhilong  

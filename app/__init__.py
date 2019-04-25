@@ -1,36 +1,26 @@
-import pymysql
-from DBUtils.PooledDB import PooledDB
-
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
+from flask import render_template
 
 from config import Config
+from app.extensions import config_extentions
+from app.main import config_blueprint
 
 
-app = Flask(__name__, instance_relative_config=True)
-# 加载默认配置
-app.config.from_object(Config)
-app.config.from_pyfile('config.py')
+def create_app(pro_name):
+    app = Flask(pro_name, instance_relative_config=True)
+    app.config.from_object(Config)
+    app.config.from_pyfile('config.py')
+    config_extentions(app)
+    config_blueprint(app)
+    errors(app)
+    return app
 
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
-app.POOL = PooledDB(creator=pymysql,
-                    maxconnections=6,
-                    mincached=5,
-                    maxcached=3,
-                    maxshared=3,
-                    blocking=True,
-                    maxusage=None,
-                    setsession=[],
-                    ping=0,
-                    host=app.config['DB_HOST'],
-                    port=app.config['DB_PORT'],
-                    user=app.config['DB_USER'],
-                    password=app.config['DB_PASSWORD'],
-                    database=app.config['DB_DATABASE'])
 
-from app import models
-from .main import view_modules as buleprint_modules
-for key in buleprint_modules:
-    app.register_blueprint(key,url_prefix=buleprint_modules[key])
+def errors(app):
+    @app.errorhandler(404)
+    def page_not_found(e):
+        return render_template('errors/error.html', error=e)
+
+    @app.errorhandler(500)
+    def server_error(e):
+        return render_template('errors/error.html', error=e)

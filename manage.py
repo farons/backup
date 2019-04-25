@@ -2,12 +2,16 @@
 # manage.py
 # @author yanzhilong
 # @description 启动app
-# @created Sat Nov 24 2018 10:59:08 GMT+0800 (中国标准时间)
-# @last-modified Wed Nov 28 2018 12:49:45 GMT+0800 (中国标准时间)
-#
-import sys
+# @created 20190425
+from flask_script import Manager
+from flask_migrate import MigrateCommand
 
-from app import app
+from app import create_app
+
+
+app = create_app('backup')
+manager = Manager(app)
+manager.add_command('db', MigrateCommand)
 
 if __name__ == '__main__':
-    app.run(host=app.config['SERVER_HOST'],port=app.config['SERVER_PORT'],debug=app.config['DEBUG'])
+    manager.run()
