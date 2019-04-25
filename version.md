@@ -1,3 +1,12 @@
+版本: v 0.0.10  
+修改日期: 2019-04-25  
+修改人: yanzhilong  
+修改内容:  
+1. 修改app/requirements.txt 更新python更新包  
+2. 修改app/manage.py 优化配置文件读取  
+
+---  
+
 版本: v 0.0.9  
 修改日期: 2019-04-25  
 修改人: yanzhilong  
