@@ -1,7 +1,7 @@
 # -*- coding:UTF-8 -*-
 # manage.py
 # @author yanzhilong
-# @description 启动app
+# @description 启动app入口
 # @created 20190425
 from flask_script import Manager, Server
 from flask_migrate import MigrateCommand
