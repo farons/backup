@@ -40,7 +40,7 @@ def config_extentions(app):
     migrate.init_app(app=app)
     login_manager.init_app(app=app)
     mail.init_app(app)
-    init_mysql(app, 14)
+    init_mysql(app, 3)
 
 
 def init_mysql(app, restart_times=3):
@@ -94,22 +94,25 @@ def init_logger(app):
     log_file_folder = base_path + os.sep + log_dir_name
     make_dir(log_file_folder)
     log_file_str = log_file_folder + os.sep + log_file_name
-    file_handler = logging.FileHandler(log_file_str, encoding='UTF-8')
+    file_handler = logging.FileHandler(
+        log_file_str, encoding='UTF-8')
     file_handler.setLevel(logging.INFO)
     logging_format = logging.Formatter(
-        '%(asctime)s - %(levelname)s - %(filename)s - %(funcName)s - %(lineno)s - %(message)s')
+        '%(name)s - %(asctime)s - %(levelname)s - %(filename)s - %(funcName)s - %(lineno)s - %(message)s')
     file_handler.setFormatter(logging_format)
+    # 更改默认的日志显示格式
+    app.logger.handlers[0].setFormatter(logging_format)
     app.logger.addHandler(file_handler)
 
     # log配置,优化后的邮件通知
-    if 'LOG_EMAIL_HOST' in app.config.keys():
-        email_handler = OptmizedMemoryHandler(10, "backup后台程序", app.config['LOG_EMAIL_HOST'],
-                                              app.config['LOG_EMAIL_PORT'], app.config['LOG_EMAIL_USER'],
-                                              app.config['LOG_EMAIL_PASSWD'],
-                                              app.config['LOG_EMAIL_FROM'], app.config['LOG_EMAIL_TO'])
-        email_handler.setLevel(logging.ERROR)
-        email_handler.setFormatter(logging.Formatter(logging_format))
-        app.logger.addHandler(email_handler)
+    if ('LOG_EMAIL_HOST' in app.config.keys()) and (app.config['TESTING'] is False):
+        memory_handler = OptmizedMemoryHandler(app.config['LOG_EMAIL_MAX'], "backup后台程序", app.config['LOG_EMAIL_HOST'],
+                                               app.config['LOG_EMAIL_PORT'], app.config['LOG_EMAIL_USER'],
+                                               app.config['LOG_EMAIL_PASSWD'],
+                                               app.config['LOG_EMAIL_FROM'], app.config['LOG_EMAIL_TO'])
+        memory_handler.setLevel(logging.ERROR)
+        memory_handler.setFormatter(logging.Formatter(logging_format))
+        app.logger.addHandler(memory_handler)
 
 
 class OptmizedMemoryHandler(MemoryHandler):
@@ -145,7 +148,8 @@ class OptmizedMemoryHandler(MemoryHandler):
                 message = record.getMessage()
                 content += record.levelname + " occurred at " + \
                     time.strftime(
-                        '%Y-%m-%d %H:%M:%S', time.localtime(record.created)) + "  : " + message + '\n'
+                        '%Y-%m-%d %H:%M:%S', time.localtime(record.created)) + \
+                    "  : " + message + " in " + record.pathname + " at line " + str(record.lineno) + '\n'
             self.send_warning_mail(
                 self.mail_subject, content, self.mail_host, self.mail_port, self.mail_from_user,
                 self.mail_from_passwd, self.mail_from, self.mail_to)
@@ -159,13 +163,12 @@ class OptmizedMemoryHandler(MemoryHandler):
         msg['Subject'] = Header(subject, 'utf-8')  # 标题
         msg['From'] = Header(from_addr)
         msg['To'] = Header(to_addr)
-        print(msg.as_string())
         try:
             smtp = smtplib.SMTP()
             smtp.connect(host, port)
             smtp.login(user, passwd)
-            smtp.sendmail(from_addr, to_addr, msg.as_string())
+            smtp.sendmail(from_addr, to_addr, msg.as_bytes())
             smtp.quit()
-            print("发送成功")
+            print("异常邮件发送成功!")
         except Exception as ex:
             print(ex)
