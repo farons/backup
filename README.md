@@ -19,3 +19,10 @@
 ### 部署
   * 调整目录结构
   * 获取镜像,启动
+
+### 数据表更新
+  * 创建伊始删除migrations文件夹
+  * manage.py中导入app.models的数据表模块
+  * 初始化: python manage.py db init
+  * 创建迁移脚本: python manage.py db migrate
+  * 更新数据库: python manage.py db upgrade

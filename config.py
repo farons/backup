@@ -20,6 +20,6 @@ class Config(object):
     DB_PORT = 3306
     DB_DATABASE = 'backup'
     DB_CHARSET = 'utf-8'
-    SQLALCHEMY_DATABASE_URI = 'mysql://root:123456@db/backup'
+    SQLALCHEMY_DATABASE_URI = 'pymysql+mysql://root:123456@db:3306/backup'
     SQLALCHEMY_ECHO = True
     SQLALCHEMY_TRACK_MODIFICATIONS = True

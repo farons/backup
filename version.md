@@ -1,3 +1,15 @@
+版本: v 0.0.15  
+修改日期: 2019-04-28  
+修改人: yanzhilong  
+修改内容:  
+1. 修改app/models.py 添加数据表创建  
+2. 修改config.py 修改mysql连接包  
+3. 修改manage.py 增加db相关命令  
+4. 修改README.md 增加db相关指令备注  
+5. 增加migrations/* 增加数据库初始化  
+
+---  
+
 版本: v 0.0.14  
 修改日期: 2019-04-27  
 修改人: yanzhilong  

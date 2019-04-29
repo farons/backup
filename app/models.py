@@ -4,11 +4,11 @@ from passlib.apps import custom_app_context as pwd_context
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from itsdangerous import SignatureExpired, BadSignature
 
-from app import db
-import config
+from app.extensions import db
+import app
 
 
-class User():
+class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(32), unique=True)
@@ -30,12 +30,12 @@ class User():
         return pwd_context.verfiy(password, self.password_hash)
 
     def generate_auth_token(self, expiration=600):
-        s = Serializer(config.SECRET_KEY, expires_in=expiration)
+        s = Serializer(app.config['SECRET_KEY'], expires_in=expiration)
         return s.dumps({'id': self.id})
 
     @staticmethod
     def verify_auth_token(token):
-        s = Serializer(config.SECRET_KEY)
+        s = Serializer(app.config['SECRET_KEY'])
         try:
             data = s.loads(token)
         except SignatureExpired:

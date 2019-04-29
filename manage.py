@@ -7,7 +7,7 @@ from flask_script import Manager, Server
 from flask_migrate import MigrateCommand
 
 from app import create_app
-
+from app.models import User
 
 app = create_app('backup', 'app/templates')
 manager = Manager(app)
